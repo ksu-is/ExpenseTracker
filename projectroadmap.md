@@ -1,0 +1,8 @@
+- [x] Create a repository.
+- [x] Edit ReadMe file.
+- [x] Create a Roadmap file using markdown language.
+- [ ] Find an exsisting repository related to expense tracking and evaluate it.
+- [ ] Clone selected repository.
+- [ ] Begin modifying code.
+- [ ] Run and review code.
+- [ ] Create a presentation.
