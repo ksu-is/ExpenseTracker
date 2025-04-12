@@ -3,6 +3,7 @@
 - [x] Create a Roadmap file using markdown language.
 - [x] Find an exsisting repository related to expense tracking and evaluate it.
 - [x] Clone selected repository.
+- [x] Create a MIT license.
 - [ ] Begin modifying code.
 - [ ] Run and review code.
 - [ ] Create a presentation.
