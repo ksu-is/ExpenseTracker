@@ -1,9 +1,9 @@
-def add_expense(expenses, amount, category):
-    expenses.append({'amount': amount, 'category': category})
+def add_expense(expenses, date, amount, category):
+    expenses.append({'date' : date, 'amount': amount, 'category': category})
     
 def print_expenses(expenses):
     for expense in expenses:
-        print(f'Amount: {expense["amount"]}, Category: {expense["category"]}')
+        print(f'Date: {expense["date"]}, Amount: {expense["amount"]}, Category: {expense["category"]}')
     
 def total_expenses(expenses):
     return sum(map(lambda expense: expense['amount'], expenses))
@@ -25,9 +25,10 @@ def main():
         choice = input('Enter your choice: ')
 
         if choice == '1':
+            date = input("Enter the date (YYYY-MM-DD): ")
             amount = float(input('Enter amount: '))
             category = input('Enter category: ')
-            add_expense(expenses, amount, category)
+            add_expense(expenses, date, amount, category)
 
         elif choice == '2':
             print('\nAll Expenses:')
