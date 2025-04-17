@@ -7,7 +7,20 @@ def get_valid_date():
             datetime.strptime(date_input, "%Y-%m-%d")
             return date_input
         except ValueError:
-            print("Invaild date format. Please use YYYY-MM-DD.")
+            print("Invalid date format. Please use YYYY-MM-DD.")
+
+import json
+
+def save_expenses(expenses, filename="expenses.json"):
+    with open(filename, 'w') as f:
+        json.dump(expenses, f)
+
+def load_expenses(filename="expenses.json"):
+    try:
+        with open(filename, 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
 
 def add_expense(expenses, date, amount, category):
     expenses.append({'date' : date, 'amount': amount, 'category': category})
@@ -34,7 +47,7 @@ def get_valid_amount():
     
 
 def main():
-    expenses = []
+    expenses = load_expenses() 
     while True:
         print('\nExpense Tracker')
         print('1. Add an expense')
@@ -42,7 +55,7 @@ def main():
         print('3. Show total expenses')
         print('4. Filter expenses by category')
         print('5. Filter expenses by month')
-        print('6. Exit')
+        print('6. Save & Exit')
        
         choice = input('Enter your choice: ')
 
@@ -72,7 +85,8 @@ def main():
             print_expenses(expenses_by_month)
 
         elif choice == '6':
-            print('Goodbye!')
+            save_expenses(expenses)
+            print('Expenses saved. Goodbye!')
             break
 
         else:
