@@ -1,3 +1,14 @@
+from datetime import datetime
+
+def get_valid_date():
+    while True:
+        date_input = input("Enter the date (YYYY-MM-DD): ")
+        try:
+            datetime.strptime(date_input, "%Y-%m-%d")
+            return date_input
+        except ValueError:
+            print("Invaild date format. Please use YYYY-MM-DD.")
+
 def add_expense(expenses, date, amount, category):
     expenses.append({'date' : date, 'amount': amount, 'category': category})
     
@@ -36,7 +47,7 @@ def main():
         choice = input('Enter your choice: ')
 
         if choice == '1':
-            date = input("Enter the date (YYYY-MM-DD): ")
+            date = get_valid_date()
             amount = get_valid_amount()
             category = input('Enter category: ')
             add_expense(expenses, date, amount, category)
