@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 
 def get_valid_date():
     while True:
@@ -8,8 +9,6 @@ def get_valid_date():
             return date_input
         except ValueError:
             print("Invalid date format. Please use YYYY-MM-DD.")
-
-import json
 
 def save_expenses(expenses, filename="expenses.json"):
     with open(filename, 'w') as f:
@@ -37,6 +36,15 @@ def filter_expenses_by_category(expenses, category):
 
 def filter_expenses_by_month(expenses, year_month):
     return [expense for expense in expenses if expense['date'].startswith(year_month)]
+
+def get_valid_year_month():
+    while True:
+        user_input = input("Enter year and month (YYYY-MM): ")
+        try:
+            datetime.strptime(user_input, "%Y-%m")
+            return user_input
+        except ValueError:
+            print("Invalid format. Please use YYYY-MM.")
 
 def get_valid_amount():
     while True:
@@ -79,7 +87,7 @@ def main():
             print_expenses(expenses_from_category)
     
         elif choice == '5':
-            year_month = input('Enter year and month (YYYY-MM): ')
+            year_month = get_valid_year_month()
             print(f'\nExpenses for {year_month}:')
             expenses_by_month = filter_expenses_by_month(expenses, year_month)
             print_expenses(expenses_by_month)
