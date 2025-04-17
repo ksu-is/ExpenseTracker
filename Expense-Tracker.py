@@ -9,7 +9,14 @@ def total_expenses(expenses):
     return sum(map(lambda expense: expense['amount'], expenses))
     
 def filter_expenses_by_category(expenses, category):
-    return filter(lambda expense: expense['category'] == category, expenses)
+    return filter(lambda expense: expense['category'].lower() == category.lower(), expenses)
+
+def get_valid_amount():
+    while True:
+        try:
+            return float(input('Enter amount: '))
+        except ValueError:
+            print("Please enter a valid number.")
     
 
 def main():
@@ -26,7 +33,7 @@ def main():
 
         if choice == '1':
             date = input("Enter the date (YYYY-MM-DD): ")
-            amount = float(input('Enter amount: '))
+            amount = get_valid_amount()
             category = input('Enter category: ')
             add_expense(expenses, date, amount, category)
 
@@ -44,7 +51,10 @@ def main():
             print_expenses(expenses_from_category)
     
         elif choice == '5':
-            print('Exiting the program.')
+            print('Goodbye!')
             break
+
+        else:
+            print("Invalid choice. Please enter a number 1-5.")
 
 main()
