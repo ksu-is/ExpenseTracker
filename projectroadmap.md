@@ -4,6 +4,11 @@
 - [x] Find an exsisting repository related to expense tracking and evaluate it.
 - [x] Clone selected repository.
 - [x] Create a MIT license.
-- [ ] Begin modifying code.
-- [ ] Run and review code.
+- [x] Begin modifying code.
+- [x] Add date input to the code.
+- [x] Improve input validation.
+- [x] Add a filter for monthly expenses.
+- [x] Add save and load expeneses function.
+- [x] Improve input validation again.
+- [x] Run and review code.
 - [ ] Create a presentation.
