@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 
-def get_valid_date():
+def get_valid_date(): # Prompts the user to enter a valid date in the YYYY-MM-DD format. Repeats until the correct format is entered.
     while True:
         date_input = input("Enter the date (YYYY-MM-DD): ")
         try:
@@ -10,21 +10,22 @@ def get_valid_date():
         except ValueError:
             print("Invalid date format. Please use YYYY-MM-DD.")
 
-def save_expenses(expenses, filename="expenses.json"):
+def save_expenses(expenses, filename="expenses.json"): # Saves the list of expenses to a specified JSON file.
+
     with open(filename, 'w') as f:
         json.dump(expenses, f)
 
-def load_expenses(filename="expenses.json"):
+def load_expenses(filename="expenses.json"): # Loads expenses from a specified JSON file and returns an empty list if the file does not exist or is empty.
     try:
         with open(filename, 'r') as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
-def add_expense(expenses, date, amount, category):
+def add_expense(expenses, date, amount, category): # Adds a new expense to the list.
     expenses.append({'date' : date, 'amount': amount, 'category': category})
 
-def remove_expense(expenses):
+def remove_expense(expenses): # Lists expenses with an index and promts the user to choose the index number of the expense they want to remove from the list.
     if not expenses:
         print("No expenses to remove.")
         return
@@ -45,25 +46,25 @@ def remove_expense(expenses):
         except ValueError:
             print("Please enter a valid number.")
 
-def print_expenses(expenses):
+def print_expenses(expenses): # Prints all expenses in a list format.
     for expense in expenses:
         print(f'Date: {expense["date"]}, Amount: ${expense["amount"]:.2f}, Category: {expense["category"]}')
     
-def total_expenses(expenses):
+def total_expenses(expenses): # Calculates the dollar amount of all expenses combined.
     total = sum(expense['amount'] for expense in expenses)
     return f"${total:.2f}"
     
-def filter_expenses_by_category(expenses, category):
+def filter_expenses_by_category(expenses, category): # Allows the user to filter expenses by a specific category.
     return filter(lambda expense: expense['category'].lower() == category.lower(), expenses)
 
-def list_categories(expenses):
+def list_categories(expenses): # Prints a list of all categories used by the user.
     categories = {expense['category'].lower() for expense in expenses}
     return sorted(categories)
 
-def filter_expenses_by_month(expenses, year_month):
+def filter_expenses_by_month(expenses, year_month): # Allows the user to filter expenses by a specific month in a year.
     return [expense for expense in expenses if expense['date'].startswith(year_month)]
 
-def get_valid_year_month():
+def get_valid_year_month(): # Prompts the user to enter a valid year and month in YYYY-MM format.
     while True:
         user_month_input = input("Enter year and month (YYYY-MM): ")
         try:
@@ -72,10 +73,10 @@ def get_valid_year_month():
         except ValueError:
             print("Invalid format. Please use YYYY-MM.")
 
-def filter_expenses_by_year(expenses, year):
+def filter_expenses_by_year(expenses, year): # Allows the user to filter expenses by a specific year.
     return [expense for expense in expenses if expense['date'].startswith(year)]
 
-def get_valid_year():
+def get_valid_year(): # Prompts the user to enter a valid year in YYYY format.
     while True:
         user_year_input = input("Enter year (YYYY): ")
         try:
@@ -84,7 +85,7 @@ def get_valid_year():
         except ValueError:
             print("Invalid format. Please use YYYY.")
 
-def get_valid_amount():
+def get_valid_amount(): # Prompts the user to enter a valid amount and allows decimal numbers.
     while True:
         try:
             return float(input('Enter amount: '))
@@ -92,7 +93,7 @@ def get_valid_amount():
             print("Please enter a valid number.")
     
 
-def main():
+def main(): # Main function to run the expense tracker application.
     expenses = load_expenses() 
     while True:
         print('\nExpense Tracker')

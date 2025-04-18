@@ -13,5 +13,6 @@
 - [x] Add a remove expense function.
 - [x] Add a filter for yearly expeneses.
 - [x] Add a list categories function.  
+- [x] Add comments to describe the code.
 - [x] Run and review code.
 - [ ] Create a presentation.
