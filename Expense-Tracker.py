@@ -97,7 +97,7 @@ def main():
     while True:
         print('\nExpense Tracker')
         print('1. Add an expense')
-        print('2. Remove expenses')
+        print('2. Remove an expense')
         print('3. List all expenses')
         print('4. List all categories')
         print('5. Show total expenses')
