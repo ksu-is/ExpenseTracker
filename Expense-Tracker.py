@@ -47,10 +47,11 @@ def remove_expense(expenses):
 
 def print_expenses(expenses):
     for expense in expenses:
-        print(f'Date: {expense["date"]}, Amount: {expense["amount"]}, Category: {expense["category"]}')
+        print(f'Date: {expense["date"]}, Amount: ${expense["amount"]:.2f}, Category: {expense["category"]}')
     
 def total_expenses(expenses):
-    return sum(map(lambda expense: expense['amount'], expenses))
+    total = sum(expense['amount'] for expense in expenses)
+    return f"${total:.2f}"
     
 def filter_expenses_by_category(expenses, category):
     return filter(lambda expense: expense['category'].lower() == category.lower(), expenses)
