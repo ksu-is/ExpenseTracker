@@ -56,6 +56,10 @@ def total_expenses(expenses):
 def filter_expenses_by_category(expenses, category):
     return filter(lambda expense: expense['category'].lower() == category.lower(), expenses)
 
+def list_categories(expenses):
+    categories = {expense['category'].lower() for expense in expenses}
+    return sorted(categories)
+
 def filter_expenses_by_month(expenses, year_month):
     return [expense for expense in expenses if expense['date'].startswith(year_month)]
 
@@ -95,11 +99,12 @@ def main():
         print('1. Add an expense')
         print('2. Remove expenses')
         print('3. List all expenses')
-        print('4. Show total expenses')
-        print('5. Filter expenses by category')
-        print('6. Filter expenses by month')
-        print('7. Filter expenses by year')
-        print('8. Save & Exit')
+        print('4. List all categories')
+        print('5. Show total expenses')
+        print('6. Filter expenses by category')
+        print('7. Filter expenses by month')
+        print('8. Filter expenses by year')
+        print('9. Save & Exit')
        
         choice = input('Enter your choice: ')
 
@@ -115,34 +120,43 @@ def main():
         elif choice == '3':
             print('\nAll Expenses:')
             print_expenses(expenses)
-    
+        
         elif choice == '4':
-            print('\nTotal Expenses: ', total_expenses(expenses))
+            print('\nAll Categories:')
+            categories = list_categories(expenses)
+            if categories:
+                for category in categories:
+                    print(category)
+            else:
+                print("No categories found.")
     
         elif choice == '5':
+            print('\nTotal Expenses: ', total_expenses(expenses))
+    
+        elif choice == '6':
             category = input('Enter category to filter: ')
             print(f'\nExpenses for {category}:')
             expenses_from_category = filter_expenses_by_category(expenses, category)
             print_expenses(expenses_from_category)
     
-        elif choice == '6':
+        elif choice == '7':
             year_month = get_valid_year_month()
             print(f'\nExpenses for {year_month}:')
             expenses_by_month = filter_expenses_by_month(expenses, year_month)
             print_expenses(expenses_by_month)
 
-        elif choice == '7':
+        elif choice == '8':
             year = get_valid_year()
             print(f'\nExpenses for {year}:')
             expenses_by_year = filter_expenses_by_year(expenses, year)
             print_expenses(expenses_by_year)
 
-        elif choice == '8':
+        elif choice == '9':
             save_expenses(expenses)
             print('Expenses saved. Goodbye!')
             break
 
         else:
-            print("Invalid choice. Please enter a number 1-8.")
+            print("Invalid choice. Please enter a number 1-9.")
 
 main()
