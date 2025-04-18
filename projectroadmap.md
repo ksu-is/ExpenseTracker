@@ -10,5 +10,8 @@
 - [x] Add a filter for monthly expenses.
 - [x] Add save and load expeneses function.
 - [x] Improve input validation again.
+- [x] Add a remove expense function.
+- [x] Add a filter for yearly expeneses.
+- [x] Add a list categories function.  
 - [x] Run and review code.
 - [ ] Create a presentation.
