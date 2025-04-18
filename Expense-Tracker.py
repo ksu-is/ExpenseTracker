@@ -60,12 +60,24 @@ def filter_expenses_by_month(expenses, year_month):
 
 def get_valid_year_month():
     while True:
-        user_input = input("Enter year and month (YYYY-MM): ")
+        user_month_input = input("Enter year and month (YYYY-MM): ")
         try:
-            datetime.strptime(user_input, "%Y-%m")
-            return user_input
+            datetime.strptime(user_month_input, "%Y-%m")
+            return user_month_input
         except ValueError:
             print("Invalid format. Please use YYYY-MM.")
+
+def filter_expenses_by_year(expenses, year):
+    return [expense for expense in expenses if expense['date'].startswith(year)]
+
+def get_valid_year():
+    while True:
+        user_year_input = input("Enter year (YYYY): ")
+        try:
+            datetime.strptime(user_year_input, "%Y")
+            return user_year_input
+        except ValueError:
+            print("Invalid format. Please use YYYY.")
 
 def get_valid_amount():
     while True:
@@ -85,7 +97,8 @@ def main():
         print('4. Show total expenses')
         print('5. Filter expenses by category')
         print('6. Filter expenses by month')
-        print('7. Save & Exit')
+        print('7. Filter expenses by year')
+        print('8. Save & Exit')
        
         choice = input('Enter your choice: ')
 
@@ -118,11 +131,17 @@ def main():
             print_expenses(expenses_by_month)
 
         elif choice == '7':
+            year = get_valid_year()
+            print(f'\nExpenses for {year}:')
+            expenses_by_year = filter_expenses_by_year(expenses, year)
+            print_expenses(expenses_by_year)
+
+        elif choice == '8':
             save_expenses(expenses)
             print('Expenses saved. Goodbye!')
             break
 
         else:
-            print("Invalid choice. Please enter a number 1-6.")
+            print("Invalid choice. Please enter a number 1-8.")
 
 main()
