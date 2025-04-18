@@ -23,7 +23,28 @@ def load_expenses(filename="expenses.json"):
 
 def add_expense(expenses, date, amount, category):
     expenses.append({'date' : date, 'amount': amount, 'category': category})
-    
+
+def remove_expense(expenses):
+    if not expenses:
+        print("No expenses to remove.")
+        return
+
+    print("\nExpenses:")
+    for idx, expense in enumerate(expenses, start=1):
+        print(f"{idx}. Date: {expense['date']}, Amount: {expense['amount']}, Category: {expense['category']}")
+
+    while True:
+        try:
+            choice = int(input("Enter the number of the expense to remove: "))
+            if 1 <= choice <= len(expenses):
+                removed = expenses.pop(choice - 1)
+                print(f"Removed: {removed}")
+                break
+            else:
+                print("Invalid number. Please try again.")
+        except ValueError:
+            print("Please enter a valid number.")
+
 def print_expenses(expenses):
     for expense in expenses:
         print(f'Date: {expense["date"]}, Amount: {expense["amount"]}, Category: {expense["category"]}')
@@ -59,11 +80,12 @@ def main():
     while True:
         print('\nExpense Tracker')
         print('1. Add an expense')
-        print('2. List all expenses')
-        print('3. Show total expenses')
-        print('4. Filter expenses by category')
-        print('5. Filter expenses by month')
-        print('6. Save & Exit')
+        print('2. Remove expenses')
+        print('3. List all expenses')
+        print('4. Show total expenses')
+        print('5. Filter expenses by category')
+        print('6. Filter expenses by month')
+        print('7. Save & Exit')
        
         choice = input('Enter your choice: ')
 
@@ -72,27 +94,30 @@ def main():
             amount = get_valid_amount()
             category = input('Enter category: ')
             add_expense(expenses, date, amount, category)
-
+        
         elif choice == '2':
+            remove_expense(expenses)
+
+        elif choice == '3':
             print('\nAll Expenses:')
             print_expenses(expenses)
     
-        elif choice == '3':
+        elif choice == '4':
             print('\nTotal Expenses: ', total_expenses(expenses))
     
-        elif choice == '4':
+        elif choice == '5':
             category = input('Enter category to filter: ')
             print(f'\nExpenses for {category}:')
             expenses_from_category = filter_expenses_by_category(expenses, category)
             print_expenses(expenses_from_category)
     
-        elif choice == '5':
+        elif choice == '6':
             year_month = get_valid_year_month()
             print(f'\nExpenses for {year_month}:')
             expenses_by_month = filter_expenses_by_month(expenses, year_month)
             print_expenses(expenses_by_month)
 
-        elif choice == '6':
+        elif choice == '7':
             save_expenses(expenses)
             print('Expenses saved. Goodbye!')
             break
