@@ -3,7 +3,9 @@ import json
 
 def get_valid_date(): # Prompts the user to enter a valid date in the YYYY-MM-DD format. Repeats until the correct format is entered.
     while True:
-        date_input = input("Enter the date (YYYY-MM-DD): ")
+        date_input = input("Enter the date (YYYY-MM-DD) or type 'cancel' to go back: ")
+        if date_input.lower() == 'cancel':
+            return None
         try:
             datetime.strptime(date_input, "%Y-%m-%d")
             return date_input
@@ -35,8 +37,12 @@ def remove_expense(expenses): # Lists expenses with an index and promts the user
         print(f"{idx}. Date: {expense['date']}, Amount: {expense['amount']}, Category: {expense['category']}")
 
     while True:
+        choice = input("Enter the number of the expense to remove or type 'cancel' to go back: ")
+        if choice.lower() == 'cancel':
+            print("Cancelled.")
+            return
         try:
-            choice = int(input("Enter the number of the expense to remove: "))
+            choice = int(choice)
             if 1 <= choice <= len(expenses):
                 removed = expenses.pop(choice - 1)
                 print(f"Removed: {removed}")
@@ -66,7 +72,9 @@ def filter_expenses_by_month(expenses, year_month): # Allows the user to filter 
 
 def get_valid_year_month(): # Prompts the user to enter a valid year and month in YYYY-MM format.
     while True:
-        user_month_input = input("Enter year and month (YYYY-MM): ")
+        user_month_input = input("Enter year and month (YYYY-MM) or type 'cancel' to go back: ")
+        if user_month_input.lower() == 'cancel':
+            return None
         try:
             datetime.strptime(user_month_input, "%Y-%m")
             return user_month_input
@@ -78,7 +86,9 @@ def filter_expenses_by_year(expenses, year): # Allows the user to filter expense
 
 def get_valid_year(): # Prompts the user to enter a valid year in YYYY format.
     while True:
-        user_year_input = input("Enter year (YYYY): ")
+        user_year_input = input("Enter year (YYYY) or type 'cancel' to go back: ")
+        if user_year_input.lower() == 'cancel':
+            return None
         try:
             datetime.strptime(user_year_input, "%Y")
             return user_year_input
@@ -87,8 +97,11 @@ def get_valid_year(): # Prompts the user to enter a valid year in YYYY format.
 
 def get_valid_amount(): # Prompts the user to enter a valid amount and allows decimal numbers.
     while True:
+        amount_input = input("Enter amount or type 'cancel' to go back: ")
+        if amount_input.lower() == 'cancel':
+            return None
         try:
-            return float(input('Enter amount: '))
+            return float(amount_input)
         except ValueError:
             print("Please enter a valid number.")
     
@@ -111,8 +124,16 @@ def main(): # Main function to run the expense tracker application.
 
         if choice == '1':
             date = get_valid_date()
+            if date is None:
+                print ("Cancelled.")
+                continue
             amount = get_valid_amount()
-            category = input('Enter category: ')
+            if amount is None:
+                print("Cancelled.")
+            category = input('Enter category or type "cancel": ')
+            if category.lower() == 'cancel':
+                print("Cancelled.")
+                continue
             add_expense(expenses, date, amount, category)
         
         elif choice == '2':
@@ -135,19 +156,28 @@ def main(): # Main function to run the expense tracker application.
             print('\nTotal Expenses: ', total_expenses(expenses))
     
         elif choice == '6':
-            category = input('Enter category to filter: ')
+            category = input('Enter category to filter (or type "cancel" to go back): ')
+            if category.lower() == 'cancel':
+                print("Cancelled.")
+                continue
             print(f'\nExpenses for {category}:')
             expenses_from_category = filter_expenses_by_category(expenses, category)
             print_expenses(expenses_from_category)
     
         elif choice == '7':
             year_month = get_valid_year_month()
+            if year_month is None:
+                print("Cancelled.")
+                continue
             print(f'\nExpenses for {year_month}:')
             expenses_by_month = filter_expenses_by_month(expenses, year_month)
             print_expenses(expenses_by_month)
 
         elif choice == '8':
             year = get_valid_year()
+            if year is None:
+                print("Cancelled.")
+                continue
             print(f'\nExpenses for {year}:')
             expenses_by_year = filter_expenses_by_year(expenses, year)
             print_expenses(expenses_by_year)
